@@ -74,7 +74,8 @@ class seek1assit(Plugin):
 
         reply = Reply()
         reply.type = ReplyType.TEXT
-        e_context["reply"] = reply_content
+        reply.content=reply.content
+        e_context["reply"] = reply
         e_context.action = EventAction.BREAK_PASS
     def get_help_text(self, **kwargs):
         help_text = "解答医学方面的问题\n"
