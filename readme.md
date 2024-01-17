@@ -11,7 +11,7 @@
 - 支持医疗相关问题专业解答
 
 ## 申请服务
-https://medisearch.io
+[medisearch](https://search2ai.online/medisearch)，免费1000次
 
 ## 配置
 - 服务器部署：复制插件目录的`config.json.template`文件,重命名为`config.json`，配置参数即可
