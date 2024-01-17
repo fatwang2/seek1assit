@@ -58,7 +58,7 @@ class seek1assit(Plugin):
         responses = client.send_user_message(conversation=[content], 
                                             conversation_id=conversation_id,
                                             should_stream_response=False,
-                                            language="Chinese (simplified)")
+                                            language="Chinese(simplified)")
 
         llm_answer = None
         for response in responses:
