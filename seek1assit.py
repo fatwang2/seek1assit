@@ -57,7 +57,7 @@ class seek1assit(Plugin):
             client = MediSearchClient(api_key=api_key)
             responses = client.send_user_message(conversation=[content], 
                                                 conversation_id=conversation_id,
-                                                should_stream_response=True,
+                                                should_stream_response=False,
                                                 language="Chinese")
 
             llm_answer = None
