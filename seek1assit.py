@@ -66,11 +66,12 @@ class seek1assit(Plugin):
                 break
 
         if llm_answer is not None:
-            # 将 llm_answer 作为回复内容
             reply_content = llm_answer
-            # ...
         else:
             content = "Content not found or error in response"
+        except requests.exceptions.RequestException as e:
+        # 处理可能出现的错误
+            logger.error(f"Error calling: {e}")
 
         reply = Reply()
         reply.type = ReplyType.TEXT
