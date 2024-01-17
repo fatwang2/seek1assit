@@ -47,8 +47,7 @@ class seek1assit(Plugin):
         if context.type not in [ContextType.TEXT]:
             return
         content = context.content
-
-        if content.startswith(self.prefix) :
+        if content.startswith(self.prefix):
             self.handle_medi (content, e_context)
             return
     def handle_medi(self, content, e_context):
@@ -57,7 +56,7 @@ class seek1assit(Plugin):
         client = MediSearchClient(api_key=api_key)
         responses = client.send_user_message(conversation=[content], 
                                             conversation_id=conversation_id,
-                                            should_stream_response=False,
+                                            should_stream_response=True,
                                             language="Chinese")
 
         llm_answer = None
@@ -75,7 +74,7 @@ class seek1assit(Plugin):
 
         reply = Reply()
         reply.type = ReplyType.TEXT
-        e_context["reply"] = reply
+        e_context["reply"] = reply_content
         e_context.action = EventAction.BREAK_PASS
     def get_help_text(self, **kwargs):
         help_text = "解答医学方面的问题\n"
