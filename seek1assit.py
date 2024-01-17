@@ -52,7 +52,7 @@ class seek1assit(Plugin):
             self.handle_medi (content, e_context)
             return
     def handle_medi(self, content, e_context):
-        api_key = self.seek1assit_key
+        api_key = self.medisearch_key
         conversation_id = str(uuid.uuid4())
         client = MediSearchClient(api_key=api_key)
         responses = client.send_user_message(conversation=[content], 
