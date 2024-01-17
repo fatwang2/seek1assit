@@ -51,33 +51,37 @@ class seek1assit(Plugin):
             self.handle_medi (content, e_context)
             return
     def handle_medi(self, content, e_context):
-        api_key = self.medisearch_key
-        conversation_id = str(uuid.uuid4())
-        client = MediSearchClient(api_key=api_key)
-        responses = client.send_user_message(conversation=[content], 
-                                            conversation_id=conversation_id,
-                                            should_stream_response=True,
-                                            language="Chinese")
+        try:
+            api_key = self.medisearch_key
+            conversation_id = str(uuid.uuid4())
+            client = MediSearchClient(api_key=api_key)
+            responses = client.send_user_message(conversation=[content], 
+                                                conversation_id=conversation_id,
+                                                should_stream_response=True,
+                                                language="Chinese")
 
-        llm_answer = None
-        for response in responses:
-            if response["event"] == "llm_response":
-                llm_answer = response["text"]
-                break
+            llm_answer = None
+            for response in responses:
+                if response["event"] == "llm_response":
+                    llm_answer = response["text"]
+                    break
 
-        if llm_answer is not None:
-            reply_content = llm_answer
-        else:
-            content = "Content not found or error in response"
+            if llm_answer is not None:
+                reply_content = llm_answer
+            else:
+                reply_content = "Content not found or error in response"
+
         except requests.exceptions.RequestException as e:
-        # 处理可能出现的错误
+            # 处理可能出现的错误
             logger.error(f"Error calling: {e}")
+            reply_content = "An error occurred while processing the request"
 
         reply = Reply()
         reply.type = ReplyType.TEXT
-        reply.content=reply.content
+        reply.content = reply_content  
         e_context["reply"] = reply
         e_context.action = EventAction.BREAK_PASS
+
     def get_help_text(self, **kwargs):
         help_text = "解答医学方面的问题\n"
         return help_text
