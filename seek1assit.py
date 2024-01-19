@@ -13,7 +13,7 @@ import uuid
     name="seek1assit",
     desire_priority=2,
     desc="A plugin for seek one assit about medical problems",
-    version="0.0.1",
+    version="0.0.2",
     author="fatwang2",
 )
 class seek1assit(Plugin):
@@ -33,7 +33,6 @@ class seek1assit(Plugin):
                     raise Exception("config.json not found")
             # 设置事件处理函数
             self.handlers[Event.ON_HANDLE_CONTEXT] = self.on_handle_context
-            
             # 从配置中提取所需的设置
             self.medisearch_key = self.config.get("medisearch_key", {})
             self.prefix = self.config.get("prefix", {})
@@ -58,13 +57,22 @@ class seek1assit(Plugin):
                                                 language="Chinese")
 
             llm_answer = None
+            articles = []
+
             for response in responses:
                 if response["event"] == "llm_response":
                     llm_answer = response["text"]
-                    break
+                elif response["event"] == "articles":
+                    for article in response["articles"]:
+                        authors = ", ".join(article["authors"])
+                        year = article["year"]
+                        url = article["url"]
+                        articles.append(f"{authors} {year}：{url}")
 
             if llm_answer is not None:
                 reply_content = llm_answer
+                if articles:
+                    reply_content += "\n\n参考资料：\n" + "\n".join(articles)
             else:
                 reply_content = "Content not found or error in response"
 
@@ -80,5 +88,5 @@ class seek1assit(Plugin):
         e_context.action = EventAction.BREAK_PASS
 
     def get_help_text(self, **kwargs):
-        help_text = "解答医学方面的问题\n"
+        help_text = "专业解答医学问题\n"
         return help_text

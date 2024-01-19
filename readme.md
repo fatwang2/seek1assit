@@ -7,11 +7,11 @@
 ## 简介
 本项目为微信插件，需配合[chatgpt-on-wechat](https://github.com/zhayujie/chatgpt-on-wechat)项目使用
 
-## 功能特点
+## 功能
 - 支持医疗相关问题专业解答
 
 ## 申请服务
-[medisearch](https://search2ai.online/medisearch)，免费1000次
+点击链接注册即可获取key，免费1000次，后续每个请求 $0.2[medisearch](https://search2ai.online/medisearch)
 
 ## 配置
 - 服务器部署：复制插件目录的`config.json.template`文件,重命名为`config.json`，配置参数即可
