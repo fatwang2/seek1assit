@@ -19,8 +19,9 @@
 
 配置文件含义如下：
 ```
-"medisearch_key":"" #API key
-"prefix":"" #触发前缀词
+"medisearch_key": API key
+"prefix": 触发前缀词，命中即可触发本插件的回复
+"show_details"：是否显示本回答引用的医疗文献，默认false
 ```
 
 ## 后续计划

@@ -8,6 +8,7 @@ from plugins import Plugin, Event, EventContext, EventAction
 from common.log import logger
 from medisearch_client import MediSearchClient
 import uuid
+import re
 
 @plugins.register(
     name="seek1assit",
@@ -28,7 +29,6 @@ class seek1assit(Plugin):
             else:
                 # 使用父类的方法来加载配置
                 self.config = super().load_config()
-
                 if not self.config:
                     raise Exception("config.json not found")
             # 设置事件处理函数
@@ -36,6 +36,7 @@ class seek1assit(Plugin):
             # 从配置中提取所需的设置
             self.medisearch_key = self.config.get("medisearch_key", {})
             self.prefix = self.config.get("prefix", {})
+            self.show_details = self.config.get("show_details", False)
             # 初始化成功日志
             logger.info("[seek1assit] inited.")
         except Exception as e:
@@ -62,14 +63,18 @@ class seek1assit(Plugin):
             for response in responses:
                 if response["event"] == "llm_response":
                     llm_answer = response["text"]
-                elif response["event"] == "articles":
-                    for article in response["articles"]:
+                elif response["event"] == "articles" and self.show_details == True:
+                    for i, article in enumerate(response["articles"]):
                         authors = ", ".join(article["authors"])
-                        year = article["year"]
-                        url = article["url"]
-                        articles.append(f"{authors} {year}：{url}")
+                        year = "(" + article["year"] + ")"
+                        url = self.short_url(article["url"])
+                        if url is None:
+                            url = article["url"]
+                        articles.append(f"{i+1}. {authors} {year}：{url}")
 
             if llm_answer is not None:
+                if self.show_details == False:
+                    llm_answer = re.sub(r'\[\d+\]', '', llm_answer)
                 reply_content = llm_answer
                 if articles:
                     reply_content += "\n\n参考资料：\n" + "\n".join(articles)
@@ -86,7 +91,20 @@ class seek1assit(Plugin):
         reply.content = reply_content  
         e_context["reply"] = reply
         e_context.action = EventAction.BREAK_PASS
-
+    def short_url(self, long_url):
+        url = "https://short.fatwang2.com"
+        payload = {
+            "url": long_url
+        }        
+        headers = {'Content-Type': "application/json"}
+        response = requests.request("POST", url, json=payload, headers=headers)
+        if response.status_code == 200:
+            res_data = response.json()
+            # 直接从返回的 JSON 中获取短链接
+            short_url = res_data.get('shorturl', None)  
+            if short_url:
+                return short_url
+        return None
     def get_help_text(self, **kwargs):
         help_text = "专业解答医学问题\n"
         return help_text
