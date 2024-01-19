@@ -2,9 +2,9 @@
 import json
 import os
 import plugins
+import requests
 from bridge.reply import Reply, ReplyType
-from bridge.context import ContextType
-from plugins import *
+from plugins import Plugin, Event, EventContext, EventAction
 from common.log import logger
 from medisearch_client import MediSearchClient
 import uuid
@@ -43,10 +43,7 @@ class seek1assit(Plugin):
             # 初始化失败日志
             logger.warn(f"seek1assit init failed: {e}")
     def on_handle_context(self, e_context: EventContext):
-        context = e_context["context"]
-        if context.type not in [ContextType.TEXT]:
-            return
-        content = context.content
+        content = e_context["context"].content
         if content.startswith(self.prefix):
             self.handle_medi (content, e_context)
             return
