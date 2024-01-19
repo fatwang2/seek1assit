@@ -2,6 +2,7 @@
 [telegram频道 ](https://sum4all.site/telegram)
 
 ## 更新日志
+- V0.0.2，20240119，支持显示引用文献，默认不显示，可自行修改配置文件
 - V0.0.1，20240118，发布第一版，支持单论对话
 
 ## 简介
@@ -9,9 +10,12 @@
 
 ## 功能
 - 支持医疗相关问题专业解答
+- 支持显示回答引用的专业资料
+![Alt text](picture/简略版.png)
+![Alt text](picture/详情版.png)
 
 ## 申请服务
-点击链接注册即可获取key，免费1000次，后续每个请求 $0.2[medisearch](https://search2ai.online/medisearch)
+点击[medisearch](https://search2ai.online/medisearch)注册，获取key，免费1000次，后续每个请求 $0.2
 
 ## 配置
 - 服务器部署：复制插件目录的`config.json.template`文件,重命名为`config.json`，配置参数即可
@@ -21,10 +25,9 @@
 ```
 "medisearch_key": API key
 "prefix": 触发前缀词，命中即可触发本插件的回复
-"show_details"：是否显示本回答引用的医疗文献，默认false
+"show_details"：是否显示本回答引用的医疗文献，默认false，如需了解详情可配置为true
 ```
 
 ## 后续计划
 - 支持多轮对话
-- 支持输出引用文献
 - 支持更多医疗大模型
