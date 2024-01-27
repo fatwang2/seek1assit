@@ -1,6 +1,9 @@
 ## 用户交流
 [telegram频道 ](https://sum4all.site/telegram)
 
+## 友情赞助
+<a href="https://www.buymeacoffee.com/fatwang2" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## 更新日志
 - V0.0.2，20240119，支持显示引用文献，默认不显示，可自行修改配置文件
 - V0.0.1，20240118，发布第一版，支持单论对话
