@@ -18,7 +18,7 @@
 ![Alt text](picture/详情版.png)
 
 ## 申请服务
-点击[medisearch](https://search2ai.online/medisearch)注册，获取key，免费1000次，后续每个请求 $0.2
+点击[medisearch](https://medisearch.io)注册，获取key，免费1000次，后续每个请求 $0.2
 
 ## 配置
 - 服务器部署：复制插件目录的`config.json.template`文件,重命名为`config.json`，配置参数即可
