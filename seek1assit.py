@@ -81,7 +81,7 @@ class seek1assit(Plugin):
             else:
                 reply_content = "Content not found or error in response"
 
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
             # 处理可能出现的错误
             logger.error(f"Error calling: {e}")
             reply_content = "An error occurred while processing the request"
